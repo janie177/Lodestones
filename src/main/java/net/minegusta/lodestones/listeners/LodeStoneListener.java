@@ -6,6 +6,7 @@ import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.lodestones.saving.MGPlayer;
 import net.minegusta.mglib.utils.EffectUtil;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ public class LodeStoneListener implements Listener
 	public void onLodestoneContact(PlayerInteractEvent e)
 	{
 		Player p = e.getPlayer();
-		if(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
+		if((e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) && !p.isSneaking())
 		{
 			if(e.getClickedBlock().getType() == Main.getConfigManager().getConfigClass().getLodestoneBlock())
 			{
