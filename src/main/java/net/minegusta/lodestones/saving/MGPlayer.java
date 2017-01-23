@@ -57,7 +57,7 @@ public class MGPlayer extends MGPlayerModel
 
 	public boolean isTeleporting()
 	{
-		return System.currentTimeMillis() > teleporting;
+		return System.currentTimeMillis() < teleporting;
 	}
 
 	public void setTeleporting() {
