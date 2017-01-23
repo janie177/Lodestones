@@ -12,7 +12,6 @@ import net.minegusta.mglib.configs.ConfigurationFileManager;
 import net.minegusta.mglib.saving.mgplayer.PlayerSaveManager;
 import net.minegusta.mglib.tasks.Task;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -1,11 +1,8 @@
 package net.minegusta.lodestones.lodestones;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minegusta.lodestones.Main;
 import net.minegusta.lodestones.saving.MGPlayer;
 import net.minegusta.mglib.bossbars.BossBarUtil;
-import net.minegusta.mglib.utils.EffectUtil;
 import net.minegusta.mglib.utils.LocationUtil;
 import net.minegusta.mglib.utils.TitleUtil;
 import org.bukkit.*;
@@ -14,7 +11,6 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentMap;
 
 public class LodeStone {
 

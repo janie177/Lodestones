@@ -1,6 +1,7 @@
 package net.minegusta.lodestones.lodestones;
 
 import com.google.common.collect.Maps;
+
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;

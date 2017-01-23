@@ -6,7 +6,6 @@ import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.lodestones.saving.MGPlayer;
 import net.minegusta.mglib.gui.InventoryGUI;
-import net.minegusta.mglib.utils.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
