@@ -101,6 +101,8 @@ public class LodeStone {
 	{
 		MGPlayer mgp = Main.getSaveManager().getMGPlayer(player);
 
+		player.closeInventory();
+
 		if(mgp.isTeleporting())
 		{
 			player.sendMessage(ChatColor.RED + "You are already teleporting.");
