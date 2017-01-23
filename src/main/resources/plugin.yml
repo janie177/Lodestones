@@ -1,0 +1,23 @@
+main: net.minegusta.lodestones.Main
+name: Lodestones
+version: ${project.version}
+author: janie177
+depend: [MGLib]
+commands:
+   lodestone:
+      aliases: [ls, lodestones, wayshrine, waypoint]
+      usage: /Lodestone
+      description: Command for the Lodestones plugin.
+permissions:
+  lodestones.*:
+    description: Gives access to all commands.
+    default: op
+  lodestones.admin:
+    description: Gives access to all commands.
+    default: op
+  lodestones.help:
+    description: Use the help command.
+    default: true
+  lodestones.use:
+    description: Gives access to default perms lodestones.
+    default: true
