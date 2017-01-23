@@ -111,7 +111,7 @@ public class LodeStone {
 		player.sendMessage(ChatColor.LIGHT_PURPLE + "You will be teleported shortly.");
 
 		final Location teleportFrom = player.getLocation();
-		final List<Location> circle = LocationUtil.getPointsOnCircle(teleportFrom, 45, 2);
+		final List<Location> circle = LocationUtil.getPointsOnCircle(teleportFrom, 12, 2);
 
 		for(int i = 0; i <= 160; i+=5)
 		{
@@ -128,7 +128,7 @@ public class LodeStone {
 					}
 					for(Location l : circle)
 					{
-						l.getWorld().spigot().playEffect(l, Effect.LARGE_SMOKE, 0, 0, 0.1F, k/50F, 0.1F, 1, k/20, 25);
+						l.getWorld().spigot().playEffect(l, Effect.SPELL, 0, 0, 0.1F, k/50F, 0.1F, 0.2F, k/10, 25);
 					}
 
 				}, i);
