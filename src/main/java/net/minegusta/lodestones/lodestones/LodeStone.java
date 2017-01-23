@@ -132,7 +132,7 @@ public class LodeStone {
 					}
 					for(Location l : circle)
 					{
-						l.getWorld().spigot().playEffect(l, Effect.WITCH_MAGIC, 0, 0, 0.1F, k/50F, 0.1F, 1, k/30, 25);
+						l.getWorld().spigot().playEffect(l, Effect.LARGE_SMOKE, 0, 0, 0.1F, k/50F, 0.1F, 1, k/20, 25);
 					}
 
 				}, i);

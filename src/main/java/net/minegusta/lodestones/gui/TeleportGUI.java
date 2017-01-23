@@ -94,7 +94,7 @@ public class TeleportGUI extends InventoryGUI {
 					{
 						ItemMeta meta = getItemMeta();
 						meta.setDisplayName(stone.getDisplayName());
-						meta.setLore(Lists.newArrayList(stone.getDescription(), ChatColor.GRAY + LocationUtil.locationToString(stone.getLocation())));
+						meta.setLore(Lists.newArrayList(stone.getDescription()));
 						setItemMeta(meta);
 					}
 				});
