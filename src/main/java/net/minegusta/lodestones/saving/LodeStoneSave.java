@@ -27,10 +27,19 @@ public class LodeStoneSave extends ConfigurationModel {
 			stone.setDescription(conf.getString(s + ".description", "Description."));
 
 			Material material = Material.DIAMOND;
+			Material costMaterial = Material.GOLD_NUGGET;
 			try
 			{
 				material = Material.valueOf(conf.getString(s + ".material", null));
 			} catch (Exception ignored){}
+
+			try
+			{
+				costMaterial = Material.valueOf(conf.getString(s + ".costmaterial", null));
+			} catch (Exception ignored){}
+
+			stone.setCostMaterial(costMaterial);
+			stone.setCost(conf.getInt(s + ".cost", 0));
 
 			stone.setMaterial(material);
 			stone.setDataValue(conf.getInt(s + ".datavalue", 0));
@@ -58,8 +67,11 @@ public class LodeStoneSave extends ConfigurationModel {
 			conf.set(name + ".location", LocationUtil.locationToString(stone.getLocation()));
 			conf.set(name + ".description", stone.getDescription());
 			conf.set(name + ".material", stone.getMaterial().toString());
+			conf.set(name + ".costmaterial", stone.getCostMaterial().toString());
+			conf.set(name + ".cost", stone.getCost());
 			conf.set(name + ".datavalue", stone.getDataValue());
 			conf.set(name + ".displayname", stone.getDisplayName());
+
 		}
 	}
 }

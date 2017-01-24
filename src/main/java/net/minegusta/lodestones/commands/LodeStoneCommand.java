@@ -167,6 +167,28 @@ public class LodeStoneCommand implements CommandExecutor {
 						player.sendMessage(ChatColor.GREEN + "You set the lodestones permissions node to: " + parameter);
 						return true;
 					}
+					if (assignment.equalsIgnoreCase("cost")) {
+						try {
+							stone.setCost(Integer.parseInt(parameter));
+						} catch (Exception ignored)
+						{
+							player.sendMessage(ChatColor.RED + "That is an invalid cost.");
+							return true;
+						}
+						player.sendMessage(ChatColor.GREEN + "Using this lodestone now costs: " + parameter + " " + stone.getCostMaterial().toString() + ".");
+						return true;
+					}
+					if (assignment.equalsIgnoreCase("costmaterial")) {
+						try {
+							stone.setCostMaterial(Material.getMaterial(Integer.parseInt(parameter)));
+						} catch (Exception ignored)
+						{
+							player.sendMessage(ChatColor.RED + "That is an invalid Material ID.");
+							return true;
+						}
+						player.sendMessage(ChatColor.GREEN + "This lodestone now uses " + stone.getCost() + " " + stone.getCostMaterial().toString() + " as payment.");
+						return true;
+					}
 					if (assignment.equalsIgnoreCase("material")) {
 						Material material;
 						try {
@@ -223,6 +245,9 @@ public class LodeStoneCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Permission <Permission>" + ChatColor.GRAY + " - Give this lodestone a special permissions string.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Material <ID>" + ChatColor.GRAY + " - Set the interface item ID for this lodestone.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> DataValue <ID>" + ChatColor.GRAY + " - Give the item displayed a data value.");
+		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Cost <Amount>" + ChatColor.GRAY + " - Set the cost for using.");
+		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> CostMaterial <ID>" + ChatColor.GRAY + " - Set this lodestones usage cost to this item.");
+
 	}
 
 }

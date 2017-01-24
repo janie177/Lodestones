@@ -22,6 +22,8 @@ public class LodeStone {
 	private String permission = "lodestones.use";
 	private Material material = Material.DIAMOND;
 	private int dataValue = 0;
+	private int cost = 0;
+	private Material costMaterial = Material.GOLD_NUGGET;
 	private String displayName;
 
 	private LodeStone(String name) {
@@ -197,5 +199,21 @@ public class LodeStone {
 	public void setDisplayName(String displayName)
 	{
 		this.displayName = ChatColor.translateAlternateColorCodes('&', displayName);
+	}
+
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
+	public Material getCostMaterial() {
+		return costMaterial;
+	}
+
+	public void setCostMaterial(Material costMaterial) {
+		this.costMaterial = costMaterial;
 	}
 }

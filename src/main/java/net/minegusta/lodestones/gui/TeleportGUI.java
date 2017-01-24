@@ -6,6 +6,9 @@ import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.lodestones.saving.MGPlayer;
 import net.minegusta.mglib.gui.InventoryGUI;
+import net.minegusta.mglib.utils.InventoryUtil;
+import net.minegusta.mglib.utils.ItemUtil;
+import net.minegusta.mglib.utils.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -94,7 +97,7 @@ public class TeleportGUI extends InventoryGUI {
 					{
 						ItemMeta meta = getItemMeta();
 						meta.setDisplayName(stone.getDisplayName());
-						meta.setLore(Lists.newArrayList(stone.getDescription()));
+						meta.setLore(Lists.newArrayList(stone.getDescription(), ChatColor.YELLOW + "Cost: " + (stone.getCost() > 0 ? ChatColor.DARK_GREEN + " " + stone.getCost() + " " + stone.getCostMaterial().toString() : ChatColor.GREEN + "Free!")));
 						setItemMeta(meta);
 					}
 				});
@@ -128,7 +131,22 @@ public class TeleportGUI extends InventoryGUI {
 				LodeStone stone = Storage.getLodeStone(name);
 				if(stone != null && player.hasPermission(stone.getPermission()))
 				{
-					LodeStone.teleport(player, stone);
+					int cost = stone.getCost();
+					Material material = stone.getCostMaterial();
+
+					if(cost > 0 && player.getInventory().contains(material, cost))
+					{
+						LodeStone.teleport(player, stone);
+						PlayerUtil.removeAmount(player, material, cost);
+					}
+					else if(cost < 1)
+					{
+						LodeStone.teleport(player, stone);
+					}
+					else
+					{
+						player.sendMessage(ChatColor.RED + "You cannot afford to teleport there.");
+					}
 				}
 				else
 				{
