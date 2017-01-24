@@ -41,14 +41,14 @@ public class MGPlayer extends MGPlayerModel
 	@Override
 	public void onLoad(FileConfiguration fileConfiguration)
 	{
-		unlocked.addAll(fileConfiguration.getKeys(false).stream().filter(Storage::exists).collect(Collectors.toList()));
+		unlocked.addAll(fileConfiguration.getConfigurationSection("lodestones").getKeys(false).stream().filter(Storage::exists).collect(Collectors.toList()));
 		Storage.getAll().stream().filter(LodeStone::isDefaultUnlocked).forEach(ls -> unlocked.add(ls.getName().toLowerCase()));
 	}
 
 	@Override
 	public void updateConf(FileConfiguration fileConfiguration)
 	{
-		fileConfiguration.getKeys(false).stream().filter(s -> !unlocked.contains(s.toLowerCase())).forEach(s -> fileConfiguration.set("lodestones." + s.toLowerCase(), null));
+		fileConfiguration.getConfigurationSection("lodestones").getKeys(false).stream().filter(s -> !unlocked.contains(s.toLowerCase())).forEach(s -> fileConfiguration.set("lodestones." + s.toLowerCase(), null));
 		for(String s : unlocked)
 		{
 			if(Storage.exists(s)) fileConfiguration.set("lodestones." + s.toLowerCase(), true);

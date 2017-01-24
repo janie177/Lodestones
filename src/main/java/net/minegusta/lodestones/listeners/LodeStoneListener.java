@@ -31,6 +31,7 @@ public class LodeStoneListener implements Listener
 					if((world = stone.getWorld()) != null && world.equals(p.getWorld()) && stone.getLocation().distance(e.getClickedBlock().getLocation()) < 2)
 					{
 						e.setCancelled(true);
+
 						MGPlayer mgp = Main.getSaveManager().getMGPlayer(p);
 
 						if(!p.hasPermission(stone.getPermission()))
@@ -46,7 +47,8 @@ public class LodeStoneListener implements Listener
 							EffectUtil.playSound(p, Sound.BLOCK_NOTE_PLING);
 							return;
 						}
-
+						//Teleport player onto the lodestone.
+						p.teleport(stone.getLocation());
 						Main.getTeleportGUI().openInventory(p);
 						break;
 					}
