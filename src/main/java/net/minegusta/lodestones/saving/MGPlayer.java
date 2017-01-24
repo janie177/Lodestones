@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.mglib.saving.mgplayer.MGPlayerModel;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
@@ -44,14 +45,25 @@ public class MGPlayer extends MGPlayerModel
 	@Override
 	public void onLoad(FileConfiguration fileConfiguration)
 	{
-		fileConfiguration.getConfigurationSection("lodestones").getKeys(false).stream().filter(Storage::exists).forEach(this::unlock);
+		ConfigurationSection section;
+
+		if((section = fileConfiguration.getConfigurationSection("lodestones")) != null)
+		{
+			section.getKeys(false).stream().filter(Storage::exists).forEach(this::unlock);
+		}
+
 		Storage.getAll().stream().filter(LodeStone::isDefaultUnlocked).forEach(ls -> unlock(ls.getName()));
 	}
 
 	@Override
 	public void updateConf(FileConfiguration fileConfiguration)
 	{
-		fileConfiguration.getConfigurationSection("lodestones").getKeys(false).stream().filter(s -> !unlocked.contains(s.toLowerCase())).forEach(s -> fileConfiguration.set("lodestones." + s.toLowerCase(), null));
+		ConfigurationSection section;
+		if((section = fileConfiguration.getConfigurationSection("lodestones")) != null)
+		{
+			section.getKeys(false).stream().filter(s -> !unlocked.contains(s.toLowerCase())).forEach(s -> fileConfiguration.set("lodestones." + s.toLowerCase(), null));
+		}
+
 		unlocked.stream().filter(Storage::exists).forEach(s -> fileConfiguration.set("lodestones." + s.toLowerCase(), true));
 	}
 
