@@ -88,7 +88,8 @@ public class TeleportGUI extends InventoryGUI {
 			LodeStone stone = Storage.getLodeStone(name);
 			if(stone != null)
 			{
-				inventory.setItem(i, new ItemStack(stone.getMaterial(), 1, (short) stone.getDataValue())
+				int slot = i - ((page - 1) * 9);
+				inventory.setItem(slot, new ItemStack(stone.getMaterial(), 1, (short) stone.getDataValue())
 				{
 					{
 						ItemMeta meta = getItemMeta();
