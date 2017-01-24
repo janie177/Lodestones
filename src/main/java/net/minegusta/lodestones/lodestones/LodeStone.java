@@ -141,6 +141,7 @@ public class LodeStone {
 				{
 					if(destination.getLocation() != null && destination.getWorld() != null)
 					{
+						EffectUtil.playParticle(player, Effect.CLOUD, 30);
 						player.teleport(destination.getLocation());
 						if(Main.getConfigManager().getConfigClass().showTitleOnTeleport())
 						{
