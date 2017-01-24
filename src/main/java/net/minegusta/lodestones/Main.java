@@ -75,7 +75,9 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-
+		//Save everything
+		saveManager.saveAllMGPlayers();
+		lodestoneSavesManager.saveConfig();
 	}
 
 	public static Plugin getPlugin()

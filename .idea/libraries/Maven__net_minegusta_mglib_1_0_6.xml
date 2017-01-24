@@ -8,6 +8,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/net/minegusta/mglib/1.0.6/mglib-1.0.6-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../MGLib/src/main/java" />
     </SOURCES>
   </library>
 </component>
