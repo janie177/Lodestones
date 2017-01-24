@@ -91,11 +91,11 @@ public class LodeStone {
 	{
 		if(isLoaded())
 		{
-			location.getWorld().spigot().playEffect(location.clone().add(0, 0.1F, 0), Effect.SPELL, 0, 0, 0.2F, 0, 0.2F, 1 / 30, 3, 35);
-			location.getWorld().spigot().playEffect(location.clone().add(xOffset, 0, zOffset), Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
-			location.getWorld().spigot().playEffect(location.clone().add(xOffset, 3, zOffset), Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
-			location.getWorld().spigot().playEffect(location.clone().add(-xOffset, 0, -zOffset), Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
-			location.getWorld().spigot().playEffect(location.clone().add(-xOffset, 3, -zOffset), Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
+			location.getWorld().spigot().playEffect(location.clone().add(0, 0.1F, 0), centerEffect, 0, 0, 0.2F, 0, 0.2F, 1 / 30, 3, 35);
+			location.getWorld().spigot().playEffect(location.clone().add(xOffset, 0, zOffset), swirlEffect, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
+			location.getWorld().spigot().playEffect(location.clone().add(xOffset, 3, zOffset), swirlEffect, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
+			location.getWorld().spigot().playEffect(location.clone().add(-xOffset, 0, -zOffset), swirlEffect, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
+			location.getWorld().spigot().playEffect(location.clone().add(-xOffset, 3, -zOffset), swirlEffect, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
 		}
 	}
 
