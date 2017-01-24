@@ -47,6 +47,13 @@ public class LodeStoneListener implements Listener
 							EffectUtil.playSound(p, Sound.BLOCK_NOTE_PLING);
 							return;
 						}
+
+						if(mgp.isTeleporting())
+						{
+							p.sendMessage(ChatColor.RED + "You are already teleporting!");
+							return;
+						}
+
 						//Teleport player onto the lodestone.
 						p.teleport(stone.getLocation());
 						Main.getTeleportGUI().openInventory(p);

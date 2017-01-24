@@ -122,7 +122,7 @@ public class TeleportGUI extends InventoryGUI {
 		int page = mgp.getPage();
 		if(slot < 9)
 		{
-			if(page * slot < mgp.unlockedSize())
+			if(((page - 1) * 9) + slot < mgp.unlockedSize())
 			{
 				String name = mgp.getNameByIndex(page * slot);
 				LodeStone stone = Storage.getLodeStone(name);
