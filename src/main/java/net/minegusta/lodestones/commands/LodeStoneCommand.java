@@ -232,7 +232,7 @@ public class LodeStoneCommand implements CommandExecutor {
 					}
 					if (assignment.equalsIgnoreCase("swirleffect")) {
 						try {
-							stone.setSwirlEffect(Effect.valueOf(parameter));
+							stone.setSwirlEffect(Effect.valueOf(parameter.toUpperCase()));
 						} catch (Exception ignored) {
 							player.sendMessage(ChatColor.RED + "That is not a valid effect.");
 							return true;
@@ -242,7 +242,7 @@ public class LodeStoneCommand implements CommandExecutor {
 					}
 					if (assignment.equalsIgnoreCase("centereffect")) {
 						try {
-							stone.setCenterEffect(Effect.valueOf(parameter));
+							stone.setCenterEffect(Effect.valueOf(parameter.toUpperCase()));
 						} catch (Exception ignored) {
 							player.sendMessage(ChatColor.RED + "That is not a valid effect.");
 							return true;
@@ -291,6 +291,7 @@ public class LodeStoneCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> CostMaterial <ID>" + ChatColor.GRAY + " - Set this lodestones usage cost to this item.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> SwirlEffect <Effect>" + ChatColor.GRAY + " - Change the swirl effect to another particle.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> CenterEffect <Effect>" + ChatColor.GRAY + " - Change the center effect to another particle.");
+		player.sendMessage(ChatColor.GRAY + "All usable effects:" + ChatColor.DARK_BLUE + " https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html");
 
 	}
 
