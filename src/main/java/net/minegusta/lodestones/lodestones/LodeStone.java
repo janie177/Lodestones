@@ -3,6 +3,7 @@ package net.minegusta.lodestones.lodestones;
 import net.minegusta.lodestones.Main;
 import net.minegusta.lodestones.saving.MGPlayer;
 import net.minegusta.mglib.bossbars.BossBarUtil;
+import net.minegusta.mglib.utils.EffectUtil;
 import net.minegusta.mglib.utils.LocationUtil;
 import net.minegusta.mglib.utils.TitleUtil;
 import org.bukkit.*;
@@ -128,8 +129,9 @@ public class LodeStone {
 					}
 					for(Location l : circle)
 					{
-						l.getWorld().spigot().playEffect(l, Effect.WITCH_MAGIC, 0, 0, 0.1F, k/50F, 0.1F, 0.2F, k/10, 25);
+						l.getWorld().spigot().playEffect(l, Effect.WITCH_MAGIC, 0, 0, 0, k/50F, 0, 1/20, k/10, 25);
 					}
+					if(k % 20 == 0) EffectUtil.playSound(teleportFrom, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
 
 				}, i);
 			}
