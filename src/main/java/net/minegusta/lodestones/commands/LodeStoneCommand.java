@@ -136,7 +136,7 @@ public class LodeStoneCommand implements CommandExecutor {
 						String displayName = "";
 						for(int i = 3; i < args.length; i++)
 						{
-							if(args.length == i - 1) displayName = displayName + args[i];
+							if(args.length == i + 1) displayName = displayName + args[i];
 							else displayName = displayName + args[i] + " ";
 						}
 						try {
@@ -151,7 +151,7 @@ public class LodeStoneCommand implements CommandExecutor {
 						String description = "";
 						for(int i = 3; i < args.length; i++)
 						{
-							if(args.length == i - 1) description = description + args[i];
+							if(args.length == i + 1) description = description + args[i];
 							else description = description + args[i] + " ";
 						}
 						try {
