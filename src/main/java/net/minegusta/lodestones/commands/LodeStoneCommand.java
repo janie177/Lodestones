@@ -1,10 +1,12 @@
 package net.minegusta.lodestones.commands;
 
+import net.minegusta.lodestones.Main;
 import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.mglib.utils.LocationUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -51,7 +53,9 @@ public class LodeStoneCommand implements CommandExecutor {
 					}
 					else
 					{
-						Storage.createLodeStone(name);
+						LodeStone stone = Storage.createLodeStone(name);
+						stone.setLocation(player.getLocation());
+						player.getLocation().getBlock().getRelative(BlockFace.DOWN).setType(Main.getConfigManager().getConfigClass().getLodestoneBlock());
 						player.sendMessage(ChatColor.GREEN + "You created a lodestone named: " + name);
 						player.sendMessage(ChatColor.GREEN + "Edit it using /Lodestones Edit " + name);
 					}
