@@ -23,6 +23,8 @@ public class LodeStone {
 	private Material material = Material.DIAMOND;
 	private int dataValue = 0;
 	private int cost = 0;
+	private Effect swirlEffect = Effect.WITCH_MAGIC;
+	private Effect centerEffect = Effect.SPELL;
 	private Material costMaterial = Material.GOLD_NUGGET;
 	private String displayName;
 
@@ -89,6 +91,7 @@ public class LodeStone {
 	{
 		if(isLoaded())
 		{
+			location.getWorld().spigot().playEffect(location.clone().add(0, 0.1F, 0), Effect.SPELL, 0, 0, 0.2F, 0, 0.2F, 1 / 30, 3, 35);
 			location.getWorld().spigot().playEffect(location.clone().add(xOffset, 0, zOffset), Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
 			location.getWorld().spigot().playEffect(location.clone().add(xOffset, 3, zOffset), Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
 			location.getWorld().spigot().playEffect(location.clone().add(-xOffset, 0, -zOffset), Effect.WITCH_MAGIC, 0, 0, 0, 0, 0, 1 / 20, 1, 35);
@@ -215,5 +218,21 @@ public class LodeStone {
 
 	public void setCostMaterial(Material costMaterial) {
 		this.costMaterial = costMaterial;
+	}
+
+	public Effect getSwirlEffect() {
+		return swirlEffect;
+	}
+
+	public void setSwirlEffect(Effect swirlEffect) {
+		this.swirlEffect = swirlEffect;
+	}
+
+	public Effect getCenterEffect() {
+		return centerEffect;
+	}
+
+	public void setCenterEffect(Effect centerEffect) {
+		this.centerEffect = centerEffect;
 	}
 }

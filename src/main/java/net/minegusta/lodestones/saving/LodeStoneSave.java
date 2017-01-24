@@ -5,6 +5,7 @@ import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.mglib.configs.ConfigurationModel;
 import net.minegusta.mglib.utils.LocationUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -28,6 +29,14 @@ public class LodeStoneSave extends ConfigurationModel {
 
 			Material material = Material.DIAMOND;
 			Material costMaterial = Material.GOLD_NUGGET;
+			Effect swirlEffect = Effect.WITCH_MAGIC;
+			Effect centerEffect = Effect.SPELL;
+			try {
+				swirlEffect = Effect.valueOf(conf.getString(s + ".swirleffect", null));
+			} catch (Exception ignored){}
+			try {
+				centerEffect = Effect.valueOf(conf.getString(s + ".centereffect", null));
+			} catch (Exception ignored){}
 			try
 			{
 				material = Material.valueOf(conf.getString(s + ".material", null));
@@ -41,6 +50,8 @@ public class LodeStoneSave extends ConfigurationModel {
 			stone.setCostMaterial(costMaterial);
 			stone.setCost(conf.getInt(s + ".cost", 0));
 
+			stone.setCenterEffect(centerEffect);
+			stone.setSwirlEffect(swirlEffect);
 			stone.setMaterial(material);
 			stone.setDataValue(conf.getInt(s + ".datavalue", 0));
 			stone.setDisplayName(conf.getString(s + ".displayname", s));
@@ -71,6 +82,8 @@ public class LodeStoneSave extends ConfigurationModel {
 			conf.set(name + ".cost", stone.getCost());
 			conf.set(name + ".datavalue", stone.getDataValue());
 			conf.set(name + ".displayname", stone.getDisplayName());
+			conf.set(name + ".swirleffect", stone.getSwirlEffect().toString());
+			conf.set(name + ".centereffect", stone.getCenterEffect().toString());
 
 		}
 	}

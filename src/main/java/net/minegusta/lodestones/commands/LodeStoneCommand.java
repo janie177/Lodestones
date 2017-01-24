@@ -5,6 +5,7 @@ import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.mglib.utils.LocationUtil;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
@@ -20,7 +21,11 @@ public class LodeStoneCommand implements CommandExecutor {
 
 		Player player = (Player) commandSender;
 
-		if(!player.hasPermission("lodestones.help")) return false;
+		if(!player.hasPermission("lodestones.help") && !player.hasPermission("lodestones.admin"))
+		{
+			player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+			return true;
+		}
 
 		if(args.length == 0)
 		{
@@ -35,6 +40,17 @@ public class LodeStoneCommand implements CommandExecutor {
 				for (String s : Storage.getAllNames()) {
 					player.sendMessage(ChatColor.GRAY + " - " + ChatColor.YELLOW + s);
 				}
+				return true;
+			}
+
+			if(args[0].equalsIgnoreCase("permissions"))
+			{
+				player.sendMessage(ChatColor.LIGHT_PURPLE + "Permissions nodes for Lodestones:");
+				player.sendMessage(ChatColor.GREEN + "lodestones.use" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Use lodestones.");
+				player.sendMessage(ChatColor.GREEN + "lodestones.help" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Show the help command.");
+				player.sendMessage(ChatColor.GREEN + "lodestones.admin" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Use all lodestone commands.");
+				player.sendMessage(ChatColor.GRAY + "You can edit a specific lodestones permissions using " + ChatColor.DARK_GREEN + "/LS Edit <Name> Permission <Node>" + ChatColor.GRAY + ".");
+				player.sendMessage(ChatColor.GRAY + "Then simply give that newly made permission to people/groups.");
 				return true;
 			}
 		}
@@ -96,6 +112,7 @@ public class LodeStoneCommand implements CommandExecutor {
 				{
 					if(stone.getWorld() != null && stone.getLocation() != null) player.teleport(stone.getLocation());
 					player.sendMessage(ChatColor.GREEN + "You teleported to a lodestone.");
+					return true;
 				}
 			}
 			if (args[0].equalsIgnoreCase("Edit")) {
@@ -143,6 +160,7 @@ public class LodeStoneCommand implements CommandExecutor {
 							stone.setDisplayName(displayName);
 						} catch (Exception ignored) {
 							player.sendMessage(ChatColor.RED + "That is not a valid name.");
+							return true;
 						}
 						player.sendMessage(ChatColor.GREEN + "You set this stones displayname to " + displayName + ".");
 						return true;
@@ -158,6 +176,7 @@ public class LodeStoneCommand implements CommandExecutor {
 							stone.setDescription(description);
 						} catch (Exception ignored) {
 							player.sendMessage(ChatColor.RED + "That is not a valid Description.");
+							return true;
 						}
 						player.sendMessage(ChatColor.GREEN + "You set this stones Description to " + description + ".");
 						return true;
@@ -196,6 +215,7 @@ public class LodeStoneCommand implements CommandExecutor {
 							stone.setMaterial(material);
 						} catch (Exception ignored) {
 							player.sendMessage(ChatColor.RED + "That is not a valid material ID.");
+							return true;
 						}
 						player.sendMessage(ChatColor.GREEN + "You set the lodestones material to " + parameter + ".");
 						return true;
@@ -205,8 +225,29 @@ public class LodeStoneCommand implements CommandExecutor {
 							stone.setDataValue(Integer.parseInt(parameter));
 						} catch (Exception ignored) {
 							player.sendMessage(ChatColor.RED + "That is not a valid data value.");
+							return true;
 						}
 						player.sendMessage(ChatColor.GREEN + "You set the lodestones data value to " + parameter + ".");
+						return true;
+					}
+					if (assignment.equalsIgnoreCase("swirleffect")) {
+						try {
+							stone.setSwirlEffect(Effect.valueOf(parameter));
+						} catch (Exception ignored) {
+							player.sendMessage(ChatColor.RED + "That is not a valid effect.");
+							return true;
+						}
+						player.sendMessage(ChatColor.GREEN + "You set the lodestones swirl particle to " + parameter + ".");
+						return true;
+					}
+					if (assignment.equalsIgnoreCase("centereffect")) {
+						try {
+							stone.setCenterEffect(Effect.valueOf(parameter));
+						} catch (Exception ignored) {
+							player.sendMessage(ChatColor.RED + "That is not a valid effect.");
+							return true;
+						}
+						player.sendMessage(ChatColor.GREEN + "You set the lodestones center particle to " + parameter + ".");
 						return true;
 					}
 				}
@@ -231,6 +272,7 @@ public class LodeStoneCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Create <Name>" + ChatColor.GRAY + " - Create a new lodestone.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Remove <Name>" + ChatColor.GRAY + " - Remove a lodestone.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones List" + ChatColor.GRAY + " - List all existing lodestones.");
+		player.sendMessage(ChatColor.AQUA + "/Lodestones Permissions" + ChatColor.GRAY + " - List the permissions nodes for lodestones.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name>" + ChatColor.GRAY + " - Edit a lodestone.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Teleport <Name>" + ChatColor.GRAY + " - Teleport to a lodestone.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Info <Name>" + ChatColor.GRAY + " - Show info about a lodestone.");
@@ -247,6 +289,8 @@ public class LodeStoneCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> DataValue <ID>" + ChatColor.GRAY + " - Give the item displayed a data value.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Cost <Amount>" + ChatColor.GRAY + " - Set the cost for using.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> CostMaterial <ID>" + ChatColor.GRAY + " - Set this lodestones usage cost to this item.");
+		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> SwirlEffect <Effect>" + ChatColor.GRAY + " - Change the swirl effect to another particle.");
+		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> CenterEffect <Effect>" + ChatColor.GRAY + " - Change the center effect to another particle.");
 
 	}
 
