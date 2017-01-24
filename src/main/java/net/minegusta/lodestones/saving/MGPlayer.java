@@ -22,7 +22,10 @@ public class MGPlayer extends MGPlayerModel
 
 	public void unlock(String name)
 	{
-		unlocked.add(name.toLowerCase());
+		if(!hasUnlocked(name))
+		{
+			unlocked.add(name.toLowerCase());
+		}
 	}
 
 	public void lock(String name)
@@ -41,18 +44,15 @@ public class MGPlayer extends MGPlayerModel
 	@Override
 	public void onLoad(FileConfiguration fileConfiguration)
 	{
-		unlocked.addAll(fileConfiguration.getConfigurationSection("lodestones").getKeys(false).stream().filter(Storage::exists).collect(Collectors.toList()));
-		Storage.getAll().stream().filter(LodeStone::isDefaultUnlocked).forEach(ls -> unlocked.add(ls.getName().toLowerCase()));
+		fileConfiguration.getConfigurationSection("lodestones").getKeys(false).stream().filter(Storage::exists).forEach(this::unlock);
+		Storage.getAll().stream().filter(LodeStone::isDefaultUnlocked).forEach(ls -> unlock(ls.getName()));
 	}
 
 	@Override
 	public void updateConf(FileConfiguration fileConfiguration)
 	{
 		fileConfiguration.getConfigurationSection("lodestones").getKeys(false).stream().filter(s -> !unlocked.contains(s.toLowerCase())).forEach(s -> fileConfiguration.set("lodestones." + s.toLowerCase(), null));
-		for(String s : unlocked)
-		{
-			if(Storage.exists(s)) fileConfiguration.set("lodestones." + s.toLowerCase(), true);
-		}
+		unlocked.stream().filter(Storage::exists).forEach(s -> fileConfiguration.set("lodestones." + s.toLowerCase(), true));
 	}
 
 	public boolean isTeleporting()
