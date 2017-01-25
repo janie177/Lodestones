@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Maven: us.dynmap:dynmap-api:2.3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/us/dynmap/dynmap-api/2.3/dynmap-api-2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/us/dynmap/dynmap-api/2.3/dynmap-api-2.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/us/dynmap/dynmap-api/2.3/dynmap-api-2.3-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/us/dynmap/dynmap-api/2.3/dynmap-api-2.3-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/dynmap-api-source/src/main/java" />
+      <root url="file://$PROJECT_DIR$/dynmap-master-sources/src/main/java" />
+      <root url="file://$PROJECT_DIR$/DynmapCore-master/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

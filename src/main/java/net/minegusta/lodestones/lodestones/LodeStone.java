@@ -27,6 +27,7 @@ public class LodeStone {
 	private Effect centerEffect = Effect.SPELL;
 	private Material costMaterial = Material.GOLD_NUGGET;
 	private String displayName;
+	private boolean showOnMap = true;
 
 	private LodeStone(String name) {
 		this.name = name;
@@ -234,5 +235,28 @@ public class LodeStone {
 
 	public void setCenterEffect(Effect centerEffect) {
 		this.centerEffect = centerEffect;
+	}
+
+	public boolean showOnMap() {
+		return showOnMap;
+	}
+
+	public void setShowOnMap(boolean showOnMap) {
+		this.showOnMap = showOnMap;
+	}
+
+	public void updateDynMap()
+	{
+		if(Main.isDynmapEnabled() && Main.getConfigManager().getConfigClass().useDynMapMarkers())
+		{
+			if(showOnMap())
+			{
+				Main.getDynmapUtil().addMarker(this);
+			}
+			else
+			{
+				Main.getDynmapUtil().disableMarker(getName());
+			}
+		}
 	}
 }

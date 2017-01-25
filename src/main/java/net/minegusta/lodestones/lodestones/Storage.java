@@ -1,6 +1,7 @@
 package net.minegusta.lodestones.lodestones;
 
 import com.google.common.collect.Maps;
+import net.minegusta.lodestones.Main;
 
 import java.util.Collection;
 import java.util.Set;
@@ -13,9 +14,7 @@ public class Storage
 	public static LodeStone createLodeStone(String name)
 	{
 		LodeStone stone = LodeStone.createLodeStone(name);
-
 		lodestones.put(name.toLowerCase(), stone);
-
 		return stone;
 	}
 
@@ -38,6 +37,10 @@ public class Storage
 		if(exists(name.toLowerCase()))
 		{
 			lodestones.remove(name.toLowerCase());
+		}
+		if(Main.isDynmapEnabled())
+		{
+			Main.getDynmapUtil().disableMarker(name);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package net.minegusta.lodestones.saving;
 
+import net.minegusta.lodestones.Main;
 import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.mglib.configs.ConfigurationModel;
@@ -55,6 +56,8 @@ public class LodeStoneSave extends ConfigurationModel {
 			stone.setMaterial(material);
 			stone.setDataValue(conf.getInt(s + ".datavalue", 0));
 			stone.setDisplayName(conf.getString(s + ".displayname", s));
+
+			stone.updateDynMap();
 		}
 	}
 

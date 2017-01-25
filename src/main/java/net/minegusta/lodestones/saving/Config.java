@@ -11,6 +11,7 @@ public class Config extends ConfigurationModel {
 	private boolean showTitleOnTeleport;
 	private int cooldownSeconds;
 	private Material lodestoneBlock;
+	private boolean useDynMapMarkers;
 
 
 	@Override
@@ -18,6 +19,7 @@ public class Config extends ConfigurationModel {
 		this.name = conf.getString("interface-name", "&eLodestone Network");
 		this.showTitleOnTeleport = conf.getBoolean("show-title-on-teleport", true);
 		this.cooldownSeconds = conf.getInt("teleport-cooldown-seconds", 0);
+		this.useDynMapMarkers = conf.getBoolean("use-dynmap-markers", true);
 		try {
 			lodestoneBlock = Material.getMaterial(conf.getString("lodestone-block-material", "IRON_BLOCK"));
 		} catch (Exception ignored)
@@ -51,5 +53,9 @@ public class Config extends ConfigurationModel {
 
 	public Material getLodestoneBlock() {
 		return lodestoneBlock;
+	}
+
+	public boolean useDynMapMarkers() {
+		return useDynMapMarkers;
 	}
 }

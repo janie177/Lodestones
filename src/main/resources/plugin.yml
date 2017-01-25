@@ -3,6 +3,7 @@ name: Lodestones
 version: ${project.version}
 author: janie177
 depend: [MGLib]
+softdepend: [dynmap]
 commands:
    lodestone:
       aliases: [ls, lodestones, wayshrine, waypoint]

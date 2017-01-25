@@ -70,6 +70,7 @@ public class LodeStoneCommand implements CommandExecutor {
 					else
 					{
 						LodeStone stone = Storage.createLodeStone(name);
+						//Set location of lodestone to player. Important because this also refreshes the dynmap!
 						stone.setLocation(player.getLocation());
 						player.getLocation().getBlock().getRelative(BlockFace.DOWN).setType(Main.getConfigManager().getConfigClass().getLodestoneBlock());
 						player.sendMessage(ChatColor.GREEN + "You created a lodestone named: " + name);
@@ -105,6 +106,9 @@ public class LodeStoneCommand implements CommandExecutor {
 					player.sendMessage(ChatColor.DARK_PURPLE + "Display Item: " + ChatColor.GRAY + stone.getMaterial());
 					player.sendMessage(ChatColor.DARK_PURPLE + "Display value: " + ChatColor.GRAY + stone.getDataValue());
 					player.sendMessage(ChatColor.DARK_PURPLE + "Description: " + ChatColor.GRAY + stone.getDescription());
+					player.sendMessage(ChatColor.DARK_PURPLE + "Swirl Effect: " + ChatColor.GRAY + stone.getSwirlEffect().toString());
+					player.sendMessage(ChatColor.DARK_PURPLE + "Center Effect: " + ChatColor.GRAY + stone.getCenterEffect().toString());
+					player.sendMessage(ChatColor.DARK_PURPLE + "Show on Dynmap " + ChatColor.GRAY + stone.showOnMap());
 					return true;
 				}
 
@@ -140,12 +144,20 @@ public class LodeStoneCommand implements CommandExecutor {
 							player.sendMessage(ChatColor.GREEN + "This lodestone is now unlocked by default.");
 						else
 							player.sendMessage(ChatColor.DARK_RED + "Players now have to unlock this lodestone by walking there first.");
+						stone.updateDynMap();
 						return true;
 					} else if (assignment.equalsIgnoreCase("location")) {
 						stone.setLocation(player.getLocation());
 						player.sendMessage(ChatColor.GREEN + "Your location has been marked as this lodestones location.");
+						stone.updateDynMap();
+						return true;
+					} else if (assignment.equalsIgnoreCase("showonmap")) {
+						stone.setShowOnMap(!stone.showOnMap());
+						player.sendMessage(stone.showOnMap() ? ChatColor.GREEN + "This lodestone is now shown in dynmap." : ChatColor.RED + "This lodestone is no longer shown on dynmap.");
+						stone.updateDynMap();
 						return true;
 					}
+
 				}
 				if (args.length > 3) {
 					String parameter = args[3];
@@ -163,6 +175,7 @@ public class LodeStoneCommand implements CommandExecutor {
 							return true;
 						}
 						player.sendMessage(ChatColor.GREEN + "You set this stones displayname to " + displayName + ".");
+						stone.updateDynMap();
 						return true;
 					}
 					if (assignment.equalsIgnoreCase("description")) {
@@ -179,6 +192,7 @@ public class LodeStoneCommand implements CommandExecutor {
 							return true;
 						}
 						player.sendMessage(ChatColor.GREEN + "You set this stones Description to " + description + ".");
+						stone.updateDynMap();
 						return true;
 					}
 					if (assignment.equalsIgnoreCase("permission")) {
@@ -195,6 +209,7 @@ public class LodeStoneCommand implements CommandExecutor {
 							return true;
 						}
 						player.sendMessage(ChatColor.GREEN + "Using this lodestone now costs: " + parameter + " " + stone.getCostMaterial().toString() + ".");
+						stone.updateDynMap();
 						return true;
 					}
 					if (assignment.equalsIgnoreCase("costmaterial")) {
@@ -206,6 +221,7 @@ public class LodeStoneCommand implements CommandExecutor {
 							return true;
 						}
 						player.sendMessage(ChatColor.GREEN + "This lodestone now uses " + stone.getCost() + " " + stone.getCostMaterial().toString() + " as payment.");
+						stone.updateDynMap();
 						return true;
 					}
 					if (assignment.equalsIgnoreCase("material")) {
@@ -284,6 +300,7 @@ public class LodeStoneCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Name <New Name>" + ChatColor.GRAY + " - Change the display name of a lodestone.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Location" + ChatColor.GRAY + " - Changes this lodestones destination to you.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Default" + ChatColor.GRAY + " - Toggle whether this lodestone is unlocked by default.");
+		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> ShowOnMap" + ChatColor.GRAY + " - Show this lodestone on dynmap.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Permission <Permission>" + ChatColor.GRAY + " - Give this lodestone a special permissions string.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Material <ID>" + ChatColor.GRAY + " - Set the interface item ID for this lodestone.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> DataValue <ID>" + ChatColor.GRAY + " - Give the item displayed a data value.");

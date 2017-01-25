@@ -1,6 +1,7 @@
 package net.minegusta.lodestones;
 
 import net.minegusta.lodestones.commands.LodeStoneCommand;
+import net.minegusta.lodestones.dynmap.DynMapUtil;
 import net.minegusta.lodestones.gui.TeleportGUI;
 import net.minegusta.lodestones.listeners.LodeStoneListener;
 import net.minegusta.lodestones.lodestones.LodeStone;
@@ -23,6 +24,8 @@ public class Main extends JavaPlugin {
 	private static ConfigurationFileManager<LodeStoneSave> lodestoneSavesManager;
 	private static TeleportGUI gui;
 	private static Task animationTask;
+	private static DynMapUtil DYNMAP_UTIL;
+	private static boolean DYNMAP_ENABLED = false;
 
 	public static PlayerSaveManager<MGPlayer> getSaveManager() {
 		return saveManager;
@@ -40,10 +43,21 @@ public class Main extends JavaPlugin {
 		return gui;
 	}
 
+	public static boolean isDynmapEnabled() {
+		return DYNMAP_ENABLED;
+	}
+
 	@Override
 	public void onEnable() {
 		//Initialize this instance of the plugin.
 		plugin = this;
+
+		//Init dynmap support if dynmap is present.
+		if(Bukkit.getPluginManager().isPluginEnabled("dynmap"))
+		{
+			DYNMAP_ENABLED = true;
+			DYNMAP_UTIL = new DynMapUtil();
+		}
 
 		//Create a new save manager which saves players every 3 minutes.
 		saveManager = new PlayerSaveManager<>(plugin, MGPlayer.class, 60);
@@ -83,5 +97,10 @@ public class Main extends JavaPlugin {
 	public static Plugin getPlugin()
 	{
 		return plugin;
+	}
+
+	public static DynMapUtil getDynmapUtil()
+	{
+		return DYNMAP_UTIL;
 	}
 }
