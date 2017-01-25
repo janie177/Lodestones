@@ -74,6 +74,7 @@ public class DynMapUtil
 
 	public void disableMarker(String name)
 	{
+
 		name = markerPrefix + name;
 		Marker marker = set.findMarker(name);
 		if(marker != null)

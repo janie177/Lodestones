@@ -1,6 +1,7 @@
 package net.minegusta.lodestones.commands;
 
 import net.minegusta.lodestones.Main;
+import net.minegusta.lodestones.dynmap.DynMapUtil;
 import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.mglib.utils.LocationUtil;
@@ -70,8 +71,8 @@ public class LodeStoneCommand implements CommandExecutor {
 					else
 					{
 						LodeStone stone = Storage.createLodeStone(name);
-						//Set location of lodestone to player. Important because this also refreshes the dynmap!
 						stone.setLocation(player.getLocation());
+						stone.updateDynMap();
 						player.getLocation().getBlock().getRelative(BlockFace.DOWN).setType(Main.getConfigManager().getConfigClass().getLodestoneBlock());
 						player.sendMessage(ChatColor.GREEN + "You created a lodestone named: " + name);
 						player.sendMessage(ChatColor.GREEN + "Edit it using /Lodestones Edit " + name);
@@ -92,7 +93,9 @@ public class LodeStoneCommand implements CommandExecutor {
 				if (args[0].equalsIgnoreCase("remove"))
 				{
 					Storage.deleteLodeStone(name);
-					player.sendMessage(ChatColor.GOLD + "You deleted lodestone: " + name);
+					player.sendMessage(ChatColor.GOLD + "You deleted lodestone: " + name.toLowerCase());
+					Main.getDynmapUtil().disableMarker(name.toLowerCase());
+
 					return true;
 				}
 
