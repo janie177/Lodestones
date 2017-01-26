@@ -9,6 +9,7 @@ import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.lodestones.saving.Config;
 import net.minegusta.lodestones.saving.LodeStoneSave;
 import net.minegusta.lodestones.saving.MGPlayer;
+import net.minegusta.lodestones.vault.VaultUtil;
 import net.minegusta.mglib.configs.ConfigurationFileManager;
 import net.minegusta.mglib.saving.mgplayer.PlayerSaveManager;
 import net.minegusta.mglib.tasks.Task;
@@ -25,7 +26,9 @@ public class Main extends JavaPlugin {
 	private static TeleportGUI gui;
 	private static Task animationTask;
 	private static DynMapUtil DYNMAP_UTIL;
+	private static VaultUtil VAULT_UTIL;
 	private static boolean DYNMAP_ENABLED = false;
+	private static boolean VAULT_ENABLED = false;
 
 	public static PlayerSaveManager<MGPlayer> getSaveManager() {
 		return saveManager;
@@ -57,6 +60,13 @@ public class Main extends JavaPlugin {
 		{
 			DYNMAP_ENABLED = true;
 			DYNMAP_UTIL = new DynMapUtil();
+		}
+
+		//Use vault for lodestone costs if it's present.
+		if(Bukkit.getPluginManager().isPluginEnabled("Vault"))
+		{
+			VAULT_ENABLED = true;
+			VAULT_UTIL = new VaultUtil(this);
 		}
 
 		//Create a new save manager which saves players every 3 minutes.
@@ -102,5 +112,14 @@ public class Main extends JavaPlugin {
 	public static DynMapUtil getDynmapUtil()
 	{
 		return DYNMAP_UTIL;
+	}
+
+	public static VaultUtil getVaultUtil()
+	{
+		return VAULT_UTIL;
+	}
+
+	public static boolean isVaultEnabled() {
+		return VAULT_ENABLED;
 	}
 }

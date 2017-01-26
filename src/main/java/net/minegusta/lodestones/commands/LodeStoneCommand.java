@@ -1,7 +1,6 @@
 package net.minegusta.lodestones.commands;
 
 import net.minegusta.lodestones.Main;
-import net.minegusta.lodestones.dynmap.DynMapUtil;
 import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.mglib.utils.LocationUtil;
@@ -111,7 +110,7 @@ public class LodeStoneCommand implements CommandExecutor {
 					player.sendMessage(ChatColor.DARK_PURPLE + "Description: " + ChatColor.GRAY + stone.getDescription());
 					player.sendMessage(ChatColor.DARK_PURPLE + "Swirl Effect: " + ChatColor.GRAY + stone.getSwirlEffect().toString());
 					player.sendMessage(ChatColor.DARK_PURPLE + "Center Effect: " + ChatColor.GRAY + stone.getCenterEffect().toString());
-					player.sendMessage(ChatColor.DARK_PURPLE + "Show on Dynmap " + ChatColor.GRAY + stone.showOnMap());
+					player.sendMessage(ChatColor.DARK_PURPLE + "Show on Dynmap: " + ChatColor.GRAY + stone.showOnMap());
 					return true;
 				}
 
@@ -211,21 +210,34 @@ public class LodeStoneCommand implements CommandExecutor {
 							player.sendMessage(ChatColor.RED + "That is an invalid cost.");
 							return true;
 						}
-						player.sendMessage(ChatColor.GREEN + "Using this lodestone now costs: " + parameter + " " + stone.getCostMaterial().toString() + ".");
+						player.sendMessage(ChatColor.GREEN + "Using this lodestone now costs: " + stone.getCost() + (stone.useMoney() ? "$" : " " + stone.getCostMaterial().toString()) + ".");
 						stone.updateDynMap();
 						return true;
 					}
-					if (assignment.equalsIgnoreCase("costmaterial")) {
-						try {
-							stone.setCostMaterial(Material.getMaterial(Integer.parseInt(parameter)));
-						} catch (Exception ignored)
+					if (assignment.equalsIgnoreCase("currency")) {
+
+						//Payment to currency $
+						if(parameter.equalsIgnoreCase("$") || parameter.equalsIgnoreCase("money"))
 						{
-							player.sendMessage(ChatColor.RED + "That is an invalid Material ID.");
-							return true;
+							stone.setUseMoney(true);
 						}
-						player.sendMessage(ChatColor.GREEN + "This lodestone now uses " + stone.getCost() + " " + stone.getCostMaterial().toString() + " as payment.");
-						stone.updateDynMap();
+						//Payment to item ID
+						else
+						{
+							try {
+								stone.setCostMaterial(Material.getMaterial(Integer.parseInt(parameter)));
+								stone.setUseMoney(false);
+							} catch (Exception ignored)
+							{
+								player.sendMessage(ChatColor.RED + "That is an invalid Material ID.");
+								return true;
+							}
+						}
+
+						player.sendMessage(ChatColor.GREEN + "Using this lodestone now costs: " + stone.getCost() + (stone.useMoney() ? "$" : " " + stone.getCostMaterial().toString()) + ".");						stone.updateDynMap();
 						return true;
+
+
 					}
 					if (assignment.equalsIgnoreCase("material")) {
 						Material material;
@@ -308,7 +320,7 @@ public class LodeStoneCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Material <ID>" + ChatColor.GRAY + " - Set the interface item ID for this lodestone.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> DataValue <ID>" + ChatColor.GRAY + " - Give the item displayed a data value.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Cost <Amount>" + ChatColor.GRAY + " - Set the cost for using.");
-		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> CostMaterial <ID>" + ChatColor.GRAY + " - Set this lodestones usage cost to this item.");
+		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> Currency <ID OR $>" + ChatColor.GRAY + " - Set this lodestones usage cost to this item.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> SwirlEffect <Effect>" + ChatColor.GRAY + " - Change the swirl effect to another particle.");
 		player.sendMessage(ChatColor.AQUA + "/Lodestones Edit <Name> CenterEffect <Effect>" + ChatColor.GRAY + " - Change the center effect to another particle.");
 		player.sendMessage(ChatColor.GRAY + "All usable effects:" + ChatColor.DARK_BLUE + " https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html");

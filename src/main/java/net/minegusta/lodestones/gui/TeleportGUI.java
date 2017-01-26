@@ -5,6 +5,7 @@ import net.minegusta.lodestones.Main;
 import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.lodestones.saving.MGPlayer;
+import net.minegusta.lodestones.vault.VaultUtil;
 import net.minegusta.mglib.gui.InventoryGUI;
 import net.minegusta.mglib.utils.PlayerUtil;
 import org.bukkit.Bukkit;
@@ -95,7 +96,7 @@ public class TeleportGUI extends InventoryGUI {
 					{
 						ItemMeta meta = getItemMeta();
 						meta.setDisplayName(stone.getDisplayName());
-						meta.setLore(Lists.newArrayList(stone.getDescription(), ChatColor.YELLOW + "Cost: " + (stone.getCost() > 0 ? ChatColor.DARK_GREEN + " " + stone.getCost() + " " + stone.getCostMaterial().toString() : ChatColor.GREEN + "Free!")));
+						meta.setLore(Lists.newArrayList(stone.getDescription(), ChatColor.YELLOW + "Cost: " + (stone.getCost() > 0 ? ChatColor.DARK_GREEN + " " + stone.getCost() +  (stone.useMoney() ? "$" : " " + stone.getCostMaterial().toString()) : ChatColor.GREEN + "Free!")));
 						setItemMeta(meta);
 					}
 				});
@@ -127,28 +128,76 @@ public class TeleportGUI extends InventoryGUI {
 			{
 				String name = mgp.getNameByIndex(((page - 1) * 9) + slot);
 				LodeStone stone = Storage.getLodeStone(name);
-				if(stone != null && player.hasPermission(stone.getPermission()))
+
+				if(stone == null)
+				{
+					player.sendMessage(ChatColor.RED + "This lodestone could not be found. Report this to an admin.");
+					return;
+				}
+
+				if(player.hasPermission(stone.getPermission()))
 				{
 					int cost = stone.getCost();
 					Material material = stone.getCostMaterial();
+					boolean money = stone.useMoney();
 
-					if(cost > 0 && player.getInventory().contains(material, cost))
+					if(cost > 0)
 					{
-						LodeStone.teleport(player, stone);
-						PlayerUtil.removeAmount(player, material, cost);
+						//Money
+						if(money)
+						{
+							if(Main.isVaultEnabled())
+							{
+								if(Main.getVaultUtil().playerHasMoney(player, cost))
+								{
+									LodeStone.teleport(player, stone);
+									if(!Main.getVaultUtil().removeMoney(player, cost))
+									{
+										player.sendMessage(ChatColor.GREEN + "An economy plugin could not be found. Teleporting for free.");
+									}
+									else
+									{
+										player.sendMessage(ChatColor.GREEN + "You paid " + cost + "$" + " to teleport.");
+									}
+								}
+								else
+								{
+									player.sendMessage(ChatColor.RED + "You cannot afford to teleport there.");
+								}
+							}
+							else
+							{
+								player.sendMessage(ChatColor.GREEN + "Vault plugin could not be found. Teleporting for free.");
+								LodeStone.teleport(player, stone);
+							}
+						}
+						//Items
+						else
+						{
+							//Pay the items and teleport
+							if (player.getInventory().contains(material, cost))
+							{
+								LodeStone.teleport(player, stone);
+								PlayerUtil.removeAmount(player, material, cost);
+								player.sendMessage(ChatColor.GREEN + "You paid " + cost + " " + material + " to teleport.");
+							}
+							//Player could not afford the items
+							else
+							{
+								player.sendMessage(ChatColor.RED + "You cannot afford to teleport there.");
+							}
+						}
+
 					}
-					else if(cost < 1)
-					{
-						LodeStone.teleport(player, stone);
-					}
+					//Cost is free
 					else
 					{
-						player.sendMessage(ChatColor.RED + "You cannot afford to teleport there.");
+						LodeStone.teleport(player, stone);
 					}
 				}
 				else
 				{
-					player.sendMessage(ChatColor.RED + "You cannot teleport to this lodestone.");
+					player.sendMessage(ChatColor.RED + "You do not have permission to use this lodestone.");
 				}
 			}
 		}

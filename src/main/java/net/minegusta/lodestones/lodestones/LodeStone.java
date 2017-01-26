@@ -26,6 +26,7 @@ public class LodeStone {
 	private Effect swirlEffect = Effect.WITCH_MAGIC;
 	private Effect centerEffect = Effect.SPELL;
 	private Material costMaterial = Material.GOLD_NUGGET;
+	private boolean useMoney = false;
 	private String displayName;
 	private boolean showOnMap = true;
 
@@ -258,5 +259,13 @@ public class LodeStone {
 				Main.getDynmapUtil().disableMarker(getName());
 			}
 		}
+	}
+
+	public boolean useMoney() {
+		return useMoney;
+	}
+
+	public void setUseMoney(boolean useMoney) {
+		this.useMoney = useMoney;
 	}
 }

@@ -67,7 +67,7 @@ public class DynMapUtil
 		String returned = "<div class=\"infowindow\"><span style=\"font-size:135%; font-weight:bold; color:purple;\">%name%</span><br /><span style=\"font-weight:bold;\">Description: </span>%description%<br /><span style=\"font-weight:bold;\">Price: </span>%price%<br /><span style=\"font-weight:bold;\">Default Unlocked: </span>%default%<br /></div>";
 		returned = returned.replace("%name%", ChatColor.stripColor(stone.getDisplayName()));
 		returned = returned.replace("%description%", ChatColor.stripColor(stone.getDescription()));
-		returned = returned.replace("%price%", stone.getCost() > 0 ? stone.getCost() + " " + stone.getCostMaterial() : "Free!");
+		returned = returned.replace("%price%", stone.getCost() > 0 ? (stone.getCost() + (stone.useMoney() ? "$" : " " + stone.getCostMaterial().toString())) : "Free!");
 		returned = returned.replace("%default%", Boolean.toString(stone.isDefaultUnlocked()));
 		return returned;
 	}
