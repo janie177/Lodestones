@@ -106,9 +106,10 @@ public class LodeStoneCommand implements CommandExecutor {
 					player.sendMessage(ChatColor.DARK_PURPLE + "Location: " + ChatColor.GRAY + LocationUtil.locationToString(stone.getLocation()));
 					player.sendMessage(ChatColor.DARK_PURPLE + "Default Unlocked: " + ChatColor.GRAY + stone.isDefaultUnlocked());
 					player.sendMessage(ChatColor.DARK_PURPLE + "Display Item: " + ChatColor.GRAY + stone.getMaterial());
-					player.sendMessage(ChatColor.DARK_PURPLE + "Display value: " + ChatColor.GRAY + stone.getDataValue());
+					player.sendMessage(ChatColor.DARK_PURPLE + "Display Data Value: " + ChatColor.GRAY + stone.getDataValue());
 					player.sendMessage(ChatColor.DARK_PURPLE + "Description: " + ChatColor.GRAY + stone.getDescription());
 					player.sendMessage(ChatColor.DARK_PURPLE + "Swirl Effect: " + ChatColor.GRAY + stone.getSwirlEffect().toString());
+					player.sendMessage(ChatColor.DARK_PURPLE + "Cost: " + ChatColor.GRAY + stone.getCost() + (stone.useMoney() ? "$" : " " + stone.getCostMaterial()));
 					player.sendMessage(ChatColor.DARK_PURPLE + "Center Effect: " + ChatColor.GRAY + stone.getCenterEffect().toString());
 					player.sendMessage(ChatColor.DARK_PURPLE + "Show on Dynmap: " + ChatColor.GRAY + stone.showOnMap());
 					return true;
