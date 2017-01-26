@@ -55,6 +55,7 @@ public class LodeStoneSave extends ConfigurationModel {
 			stone.setMaterial(material);
 			stone.setDataValue(conf.getInt(s + ".datavalue", 0));
 			stone.setDisplayName(conf.getString(s + ".displayname", s));
+			stone.setUseMoney(conf.getBoolean(s + ".usemoney", false));
 
 			stone.updateDynMap();
 		}
@@ -86,7 +87,7 @@ public class LodeStoneSave extends ConfigurationModel {
 			conf.set(name + ".displayname", stone.getDisplayName());
 			conf.set(name + ".swirleffect", stone.getSwirlEffect().toString());
 			conf.set(name + ".centereffect", stone.getCenterEffect().toString());
-
+			conf.set(name + ".usemoney", stone.useMoney());
 		}
 	}
 }
