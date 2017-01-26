@@ -1,6 +1,5 @@
 package net.minegusta.lodestones.saving;
 
-import net.minegusta.lodestones.Main;
 import net.minegusta.lodestones.lodestones.LodeStone;
 import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.mglib.configs.ConfigurationModel;

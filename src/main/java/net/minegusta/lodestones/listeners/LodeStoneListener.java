@@ -6,7 +6,6 @@ import net.minegusta.lodestones.lodestones.Storage;
 import net.minegusta.lodestones.saving.MGPlayer;
 import net.minegusta.mglib.utils.EffectUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

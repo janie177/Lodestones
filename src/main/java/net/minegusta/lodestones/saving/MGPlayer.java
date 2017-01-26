@@ -8,7 +8,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MGPlayer extends MGPlayerModel
 {
