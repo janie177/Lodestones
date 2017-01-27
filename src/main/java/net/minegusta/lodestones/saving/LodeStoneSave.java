@@ -13,18 +13,31 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class LodeStoneSave extends ConfigurationModel {
 
 	@Override
-	public void onLoad(FileConfiguration conf) {
+	public void onLoad(FileConfiguration conf)
+	{
 		for(String s : getConfig().getKeys(false))
 		{
 			LodeStone stone = Storage.createLodeStone(s);
 
 			stone.setDefaultUnlocked(conf.getBoolean(s + ".default", false));
 			stone.setPermission(conf.getString(s + ".permission-string", "lodestones.use"));
-			Location location = LocationUtil.stringToLocation(conf.getString(s + ".location", LocationUtil.locationToString(Bukkit.getWorlds().get(0).getSpawnLocation()))) ;
-			if(location != null)
-			{
-				stone.setLocation(location);
+
+			//When a world is not loaded, returns null.
+			Location location;
+			try {
+				location = LocationUtil.stringToLocation(conf.getString(s + ".location", LocationUtil.locationToString(Bukkit.getWorlds().get(0).getSpawnLocation()))) ;
+			} catch (Exception ignored){
+				Bukkit.getLogger().info("[Lodestones] A lodestone's world was not loaded, so the lodestone was disabled.");
+				//Disable a lodestone.
+				getConfig().set(s + ".temporarily-disabled", true);
+				Storage.deleteLodeStone(s);
+				continue;
 			}
+
+			getConfig().set(s + ".temporarily-disabled", null);
+			stone.setLocation(location);
+
+
 			stone.setDescription(conf.getString(s + ".description", "Description."));
 
 			Material material = Material.DIAMOND;
@@ -66,7 +79,7 @@ public class LodeStoneSave extends ConfigurationModel {
 		//Remove all old lodestones that have been removed from memory
 		for(String s : getConfig().getKeys(false))
 		{
-			if(!Storage.getAllNames().contains(s))
+			if(!Storage.getAllNames().contains(s) && !getConfig().getBoolean(s + ".temporarily-disabled", false))
 			{
 				conf.set(s, null);
 			}
