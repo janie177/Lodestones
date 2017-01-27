@@ -95,7 +95,7 @@ public class TeleportGUI extends InventoryGUI {
 					{
 						ItemMeta meta = getItemMeta();
 						meta.setDisplayName(stone.getDisplayName());
-						meta.setLore(Lists.newArrayList(stone.getDescription(), ChatColor.YELLOW + "Cost: " + (stone.getCost() > 0 ? ChatColor.DARK_GREEN + " " + stone.getCost() +  (stone.useMoney() ? "$" : " " + stone.getCostMaterial().toString()) : ChatColor.GREEN + "Free!")));
+						meta.setLore(Lists.newArrayList(stone.getDescription(), ChatColor.YELLOW + "Cost: " + (stone.getCost() > 0 ? ChatColor.DARK_GREEN + " " + stone.getCost() +  (stone.useMoney() ? "$" : " " + stone.getCostMaterial().toString()) : ChatColor.GREEN + "Free!"), ChatColor.GRAY + "World: " + ChatColor.DARK_GRAY + stone.getWorld().getName(), ChatColor.GRAY + "X: " + ChatColor.DARK_GRAY + stone.getLocation().getX(), ChatColor.GRAY + "Z: " + ChatColor.DARK_GRAY + stone.getLocation().getZ()));
 						setItemMeta(meta);
 					}
 				});
