@@ -1,6 +1,6 @@
 #The default config for lodestones. Edit these values as you please.
 interface-name: '&eLodestone Network'
 show-title-on-teleport: true
-teleport-cooldown-seconds: true
+teleport-cooldown-seconds: 0
 lodestone-block-material: 'IRON_BLOCK'
 use-dynmap-markers: true
